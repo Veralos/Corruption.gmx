@@ -47,7 +47,7 @@ ds_list_add(desc_list,
     "You grew claws! Press A to attack enemies with them.",
     "You grew wings! Press Up in the air to flap for extra height.",
     "You grew a tail! Press S in the air to perform a tail dive attack.",
-    "You grew hooves! Walk in one direction for some time to start running.",
+    "You grew hooves! Walk in one direction for a short time to start running. While running you will kill enemies.",
     "You grew horns! Press S on the ground to perform a horn launch attack."
 );
 
