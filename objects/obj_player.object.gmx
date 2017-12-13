@@ -452,7 +452,7 @@ flash = true;
         instance_destroy();
     }
 }
-else if (other.stagger &lt;= 0 &amp;&amp; inv &lt;= 0 &amp;&amp; state != launch_state) {
+else if (other.stagger &lt;= 0 &amp;&amp; inv &lt;= 0 &amp;&amp; state == base_state) {
     audio_play_sound(snd_hit, 0, false);
     obj_control.hp--;
     inv = 60;
