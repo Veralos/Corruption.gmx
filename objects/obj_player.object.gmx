@@ -53,6 +53,7 @@ dive_charge_state = 3;
 dive_state = 4;
 launch_charge_state = 5;
 launch_state = 6;
+jump_buffer = 6;
 
 timer = 0;
 state = base_state;
@@ -67,6 +68,8 @@ run = 0;
 knockback = false;
 inv = 0;
 flash = true;
+can_dive = true;
+can_jump = 0;
 </string>
           </argument>
         </arguments>
@@ -137,26 +140,37 @@ flash = true;
             
             if (place_free(x, y + 1)) {
                 y_speed += grav;
-                if (double_jump &amp;&amp; keyboard_check_pressed(vk_up)) {
-                    audio_play_sound(snd_flap, 0, false);
-                    y_speed = double_jump_speed;
-                    double_jump = false;
-                }
             }
             else {
                 if (obj_control.ability &gt;= 2) {
                     double_jump = true;
                 }
-                if (keyboard_check_pressed(vk_up)) {
-                    audio_play_sound(snd_jump, 0, false);
-                    y_speed = jump_speed;
-                }
+                can_jump = jump_buffer;
             }
             if (y_speed &lt; 0 &amp;&amp; keyboard_check_released(vk_up)) {
                 y_speed /= 2;
             }
             if (y_speed &gt; 8) {
                 y_speed = 8;
+            }
+            if (y_speed &gt;= 0) {
+                can_dive = true;
+            }
+            
+            if (keyboard_check_pressed(vk_up)) {
+                if (can_jump &gt; 0) {
+                    audio_play_sound(snd_jump, 0, false);
+                    y_speed = jump_speed;
+                } 
+                else if (double_jump) {
+                    audio_play_sound(snd_flap, 0, false);
+                    y_speed = double_jump_speed;
+                    double_jump = false;
+                }
+            }
+            
+            if (can_jump &gt; 0) {
+                can_jump--;
             }
             
             var x_move = round(x_speed);
@@ -183,10 +197,11 @@ flash = true;
             }
             else if (keyboard_check_pressed(ord('S'))) {
                 if (place_free(x, y + 1)) {
-                    if (obj_control.ability &gt;= 3) {
+                    if (obj_control.ability &gt;= 3 &amp;&amp; can_dive) {
                         state = dive_charge_state;
                         timer = 5;
                         x_speed = 0;
+                        can_dive = false;
                     }
                 }
                 else {
