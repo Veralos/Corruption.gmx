@@ -197,7 +197,7 @@ instance_create(0, 0, obj_background);
 for (var i = 0; i &lt; ds_list_size(music_list); i++) {
     var music = ds_list_find_value(music_list, i);
     if (i == room_y) {
-        audio_sound_gain(music, 1, 0);
+        audio_sound_gain(music, obj_audio.music_gain, 0);
     } else {
         audio_sound_gain(music, 0, 0);
     }

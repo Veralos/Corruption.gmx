@@ -117,8 +117,13 @@
     <script>scripts\scr_menu_options.gml</script>
     <script>scripts\scr_menu_back.gml</script>
     <script>scripts\scr_menu_fullscreen.gml</script>
+    <script>scripts\scr_menu_sound.gml</script>
+    <script>scripts\scr_menu_music.gml</script>
     <script>scripts\scr_addon_default.gml</script>
     <script>scripts\scr_addon_fullscreen.gml</script>
+    <script>scripts\scr_addon_sound.gml</script>
+    <script>scripts\scr_addon_music.gml</script>
+    <script>scripts\scr_list_gain.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shad_white.shader</shader>
@@ -150,6 +155,7 @@
     <object>objects\obj_pedestal</object>
     <object>objects\obj_saved</object>
     <object>objects\obj_sign</object>
+    <object>objects\obj_audio</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>

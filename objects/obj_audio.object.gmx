@@ -4,11 +4,11 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
-    <event eventtype="7" enumb="2">
+    <event eventtype="0" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -25,11 +25,32 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>surface_resize(application_surface, 512, 288);
+            <string>sound_gain = 1;
+music_gain = 1;
 
-instance_create(0, 0, obj_audio);
-
-room_goto_next();
+sound_list = ds_list_create();
+ds_list_add(sound_list,
+    snd_jump,
+    snd_flap,
+    snd_attack,
+    snd_dive,
+    snd_dive_end,
+    snd_step,
+    snd_launch,
+    snd_smash,
+    snd_land,
+    snd_run,
+    snd_enemy_hit,
+    snd_enemy_die,
+    snd_hit,
+    snd_save,
+    snd_collect,
+    snd_die,
+    snd_confirm,
+    snd_cancel,
+    snd_select,
+    snd_error
+);
 </string>
           </argument>
         </arguments>

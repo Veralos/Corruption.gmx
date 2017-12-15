@@ -36,8 +36,8 @@ ds_list_add(main_menu,
 options_menu = ds_list_create();
 ds_list_add(options_menu,
     scr_menu_item_ext("Fullscreen", scr_menu_fullscreen, scr_addon_fullscreen),
-    scr_menu_item("Sound", scr_menu_error),
-    scr_menu_item("Music", scr_menu_error),
+    scr_menu_item_ext("Sound", scr_menu_sound, scr_addon_sound),
+    scr_menu_item_ext("Music", scr_menu_music, scr_addon_music),
     scr_menu_item("Back", scr_menu_back)
 );
 
