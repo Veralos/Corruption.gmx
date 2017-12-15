@@ -49,6 +49,17 @@
           <argument>
             <kind>1</kind>
             <string>can_press--;
+
+if (can_pressed &lt;= 0) {
+    if (obj_controller.cancel_pressed) {
+        audio_play_sound(snd_cancel, 0, false);
+        room_goto(rm_title);
+    }
+    if (obj_controller.confirm_pressed) {
+        audio_play_sound(snd_confirm, 0, false);
+        instance_create(x, y, obj_control);
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -108,32 +119,6 @@ draw_text(room_width / 2, room_height * (3 / 4), "Press A to retry");
             <string>if (can_press &lt;= 0) {
     audio_play_sound(snd_confirm, 0, false);
     instance_create(x, y, obj_control);
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="27">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if (can_press &lt;= 0) {
-    audio_play_sound(snd_cancel, 0, false);
-    room_goto(rm_title);
 }
 </string>
           </argument>

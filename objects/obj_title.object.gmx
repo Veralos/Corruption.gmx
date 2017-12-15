@@ -66,24 +66,33 @@ selected = 0;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (keyboard_check_pressed(vk_up)) {
+            <string>if (obj_controller.up_pressed) {
     audio_play_sound(snd_select, 0, false);
     selected--;
     if (selected &lt; 0) {
         selected = ds_list_size(current_menu) - 1;
     }
 }
-if (keyboard_check_pressed(vk_down)) {
+if (obj_controller.down_pressed) {
     audio_play_sound(snd_select, 0, false);
     selected++;
     if (selected &gt; ds_list_size(current_menu) - 1) {
         selected = 0;
     }
 }
-if (keyboard_check_pressed(ord('A'))) {
+if (obj_controller.confirm_pressed) {
     audio_play_sound(snd_confirm, 0, false);
     var selection = current_menu[| selected];
     script_execute(selection[1]);
+}
+if (obj_controller.cancel_pressed) {
+    if (current_menu == main_menu) {
+        game_end();
+    }
+    else {
+        audio_play_sound(snd_cancel, 0, false);
+        current_menu = main_menu
+    }
 }
 </string>
           </argument>
@@ -126,29 +135,6 @@ for (var i = 0; i &lt; ds_list_size(current_menu); i++) {
     }
     draw_text(room_width / 2, room_height / 2 + i * 32, text);
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="27">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>game_end();
 </string>
           </argument>
         </arguments>

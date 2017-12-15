@@ -156,6 +156,7 @@
     <object>objects\obj_saved</object>
     <object>objects\obj_sign</object>
     <object>objects\obj_audio</object>
+    <object>objects\obj_controller</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_init</room>

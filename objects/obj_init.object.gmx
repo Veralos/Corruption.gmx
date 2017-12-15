@@ -28,6 +28,7 @@
             <string>surface_resize(application_surface, 512, 288);
 
 instance_create(0, 0, obj_audio);
+instance_create(0, 0, obj_controller);
 
 room_goto_next();
 </string>

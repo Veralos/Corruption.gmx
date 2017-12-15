@@ -99,10 +99,10 @@ can_jump = 0;
     
     switch (state) {
         case base_state:
-            if (keyboard_check(vk_left)) {
+            if (obj_controller.left_held) {
                 x_speed -= 0.5;
             }
-            if (keyboard_check(vk_right)) {
+            if (obj_controller.right_held) {
                 x_speed += 0.5;
             }
             if (x_speed != 0) {
@@ -147,7 +147,7 @@ can_jump = 0;
                 }
                 can_jump = jump_buffer;
             }
-            if (y_speed &lt; 0 &amp;&amp; keyboard_check_released(vk_up)) {
+            if (y_speed &lt; 0 &amp;&amp; obj_controller.jump_released) {
                 y_speed /= 2;
             }
             if (y_speed &gt; 8) {
@@ -157,7 +157,7 @@ can_jump = 0;
                 can_dive = true;
             }
             
-            if (keyboard_check_pressed(vk_up)) {
+            if (obj_controller.jump_pressed) {
                 if (can_jump &gt; 0) {
                     audio_play_sound(snd_jump, 0, false);
                     y_speed = jump_speed;
@@ -183,7 +183,7 @@ can_jump = 0;
                 x_speed = 0;
             }
             
-            if (keyboard_check_pressed(ord('A')) || keyboard_check_pressed(ord('Q'))) {
+            if (obj_controller.attack_pressed) {
                 if (obj_control.ability &gt;= 1) {
                     audio_play_sound(snd_attack, 0, false);
                     state = attack_state;
@@ -195,7 +195,7 @@ can_jump = 0;
                     }
                 }
             }
-            else if (keyboard_check_pressed(ord('S'))) {
+            else if (obj_controller.dive_pressed) {
                 if (place_free(x, y + 1)) {
                     if (obj_control.ability &gt;= 3 &amp;&amp; can_dive) {
                         state = dive_charge_state;

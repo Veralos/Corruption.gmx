@@ -87,7 +87,7 @@ room_goto(ds_grid_get(room_grid, room_x, room_y));
     can_press --;
 }
 
-if (state == ability_state &amp;&amp; can_press &lt;= 0 &amp;&amp; keyboard_check_pressed(vk_anykey)) {
+if (state == ability_state &amp;&amp; can_press &lt;= 0 &amp;&amp; obj_controller.confirm_pressed) {
     state = base_state;
 }
 
@@ -118,7 +118,7 @@ else if (p_y &lt; 0) {
 
 obj_player.y = p_y - 16;
 
-if (keyboard_check_pressed(vk_escape)) {
+if (obj_controller.cancel_pressed) {
     audio_play_sound(snd_cancel, 0, false);
     goto = false;
     persistent = false;
