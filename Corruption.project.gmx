@@ -108,22 +108,34 @@
     <script>scripts\scr_create_world.gml</script>
     <script>scripts\scr_save.gml</script>
     <script>scripts\scr_load.gml</script>
-    <script>scripts\scr_menu_item.gml</script>
-    <script>scripts\scr_menu_item_ext.gml</script>
-    <script>scripts\scr_menu_error.gml</script>
-    <script>scripts\scr_menu_quit.gml</script>
-    <script>scripts\scr_menu_continue.gml</script>
-    <script>scripts\scr_menu_new.gml</script>
-    <script>scripts\scr_menu_options.gml</script>
-    <script>scripts\scr_menu_back.gml</script>
-    <script>scripts\scr_menu_fullscreen.gml</script>
-    <script>scripts\scr_menu_sound.gml</script>
-    <script>scripts\scr_menu_music.gml</script>
-    <script>scripts\scr_addon_default.gml</script>
-    <script>scripts\scr_addon_fullscreen.gml</script>
-    <script>scripts\scr_addon_sound.gml</script>
-    <script>scripts\scr_addon_music.gml</script>
+    <scripts name="menu">
+      <script>scripts\scr_menu_item.gml</script>
+      <script>scripts\scr_menu_item_ext.gml</script>
+      <script>scripts\scr_menu_item_ext2.gml</script>
+      <script>scripts\scr_menu_error.gml</script>
+      <script>scripts\scr_menu_quit.gml</script>
+      <script>scripts\scr_menu_continue.gml</script>
+      <script>scripts\scr_menu_new.gml</script>
+      <script>scripts\scr_menu_options.gml</script>
+      <script>scripts\scr_menu_controls.gml</script>
+      <script>scripts\scr_menu_keyboard.gml</script>
+      <script>scripts\scr_menu_gamepad.gml</script>
+      <script>scripts\scr_menu_back.gml</script>
+      <script>scripts\scr_menu_fullscreen.gml</script>
+      <script>scripts\scr_menu_sound.gml</script>
+      <script>scripts\scr_menu_music.gml</script>
+    </scripts>
+    <scripts name="addon">
+      <script>scripts\scr_addon_default.gml</script>
+      <script>scripts\scr_addon_fullscreen.gml</script>
+      <script>scripts\scr_addon_sound.gml</script>
+      <script>scripts\scr_addon_music.gml</script>
+      <script>scripts\scr_addon_gamepad.gml</script>
+      <script>scripts\scr_addon_keyboard.gml</script>
+    </scripts>
     <script>scripts\scr_list_gain.gml</script>
+    <script>scripts\scr_generate_gamepad_labels.gml</script>
+    <script>scripts\scr_generate_key_labels.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shad_white.shader</shader>

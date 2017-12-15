@@ -30,6 +30,7 @@ ds_list_add(main_menu,
     scr_menu_item("New", scr_menu_new),
     scr_menu_item("Continue", scr_menu_continue),
     scr_menu_item("Options", scr_menu_options),
+    scr_menu_item("Control Config", scr_menu_controls),
     scr_menu_item("Quit", scr_menu_quit)
 );
 
@@ -41,9 +42,40 @@ ds_list_add(options_menu,
     scr_menu_item("Back", scr_menu_back)
 );
 
+controls_menu = ds_list_create();
+ds_list_add(controls_menu,
+    scr_menu_item("Keyboard", scr_menu_keyboard),
+    scr_menu_item("Gamepad", scr_menu_gamepad),
+    scr_menu_item("Back", scr_menu_back)
+);
+ 
+keyboard_menu = ds_list_create();
+ds_list_add(keyboard_menu,
+    scr_menu_item_ext2("Move Left", scr_menu_error, scr_addon_keyboard, obj_controller.left_key),
+    scr_menu_item_ext2("Move Right", scr_menu_error, scr_addon_keyboard, obj_controller.right_key),
+    scr_menu_item_ext2("Jump", scr_menu_error, scr_addon_keyboard, obj_controller.jump_key),
+    scr_menu_item_ext2("Attack", scr_menu_error, scr_addon_keyboard, obj_controller.attack_key),
+    scr_menu_item_ext2("Dive/Launch", scr_menu_error, scr_addon_keyboard, obj_controller.dive_key),
+    scr_menu_item("Back", scr_menu_back)
+);
+
+gamepad_menu = ds_list_create();
+ds_list_add(gamepad_menu,
+    scr_menu_item_ext2("Move Left (Alt)", scr_menu_error, scr_addon_gamepad, obj_controller.left_button),
+    scr_menu_item_ext2("Move Right (Alt)", scr_menu_error, scr_addon_gamepad, obj_controller.right_button),
+    scr_menu_item_ext2("Jump", scr_menu_error, scr_addon_gamepad, obj_controller.jump_button),
+    scr_menu_item_ext2("Attack", scr_menu_error, scr_addon_gamepad, obj_controller.attack_button),
+    scr_menu_item_ext2("Dive/Launch", scr_menu_error, scr_addon_gamepad, obj_controller.dive_button),
+    scr_menu_item("Back", scr_menu_back)
+);
+
 current_menu = main_menu;
+menu_stack = ds_stack_create();
 
 selected = 0;
+
+gamepad_labels = scr_generate_gamepad_labels();
+keyboard_labels = scr_generate_key_labels();
 </string>
           </argument>
         </arguments>
@@ -91,7 +123,7 @@ if (obj_controller.cancel_pressed) {
     }
     else {
         audio_play_sound(snd_cancel, 0, false);
-        current_menu = main_menu
+        scr_menu_back();
     }
 }
 </string>
@@ -129,11 +161,18 @@ draw_set_font(fnt_option);
 
 for (var i = 0; i &lt; ds_list_size(current_menu); i++) {
     var selection = current_menu[| i];
-    var text = selection[0] + script_execute(selection[2]);
+    var addon = "";
+    if (array_length_1d(selection) &gt; 3) {
+        addon = script_execute(selection[2], selection[3]);
+    }
+    else {
+        addon = script_execute(selection[2]);
+    }
+    var text = selection[0] + addon;
     if (i == selected) {
         text = "&gt; " + text + " &lt;";
     }
-    draw_text(room_width / 2, room_height / 2 + i * 32, text);
+    draw_text(room_width / 2, room_height / 2 + i * 24, text);
 }
 </string>
           </argument>

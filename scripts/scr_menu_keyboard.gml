@@ -1,3 +1,3 @@
 selected = 0;
 ds_stack_push(menu_stack, current_menu);
-current_menu = options_menu;
+current_menu = keyboard_menu;
