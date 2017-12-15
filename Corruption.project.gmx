@@ -28,6 +28,8 @@
     <sound>sound\mus_track3</sound>
     <sound>sound\mus_track4</sound>
     <sound>sound\mus_track5</sound>
+    <sound>sound\snd_select</sound>
+    <sound>sound\snd_error</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_wall</sprite>
@@ -106,6 +108,11 @@
     <script>scripts\scr_create_world.gml</script>
     <script>scripts\scr_save.gml</script>
     <script>scripts\scr_load.gml</script>
+    <script>scripts\scr_menu_item.gml</script>
+    <script>scripts\scr_menu_error.gml</script>
+    <script>scripts\scr_menu_quit.gml</script>
+    <script>scripts\scr_menu_continue.gml</script>
+    <script>scripts\scr_menu_new.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shad_white.shader</shader>

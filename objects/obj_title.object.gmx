@@ -8,6 +8,78 @@
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
+    <event eventtype="0" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>main_menu = ds_list_create();
+ds_list_add(main_menu,
+    scr_menu_item("New", scr_menu_new),
+    scr_menu_item("Continue", scr_menu_continue),
+    scr_menu_item("Options", scr_menu_error),
+    scr_menu_item("Quit", scr_menu_quit)
+);
+
+selected = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (keyboard_check_pressed(vk_up)) {
+    audio_play_sound(snd_select, 0, false);
+    selected--;
+    if (selected &lt; 0) {
+        selected = ds_list_size(main_menu) - 1;
+    }
+}
+if (keyboard_check_pressed(vk_down)) {
+    audio_play_sound(snd_select, 0, false);
+    selected++;
+    if (selected &gt; ds_list_size(main_menu) - 1) {
+        selected = 0;
+    }
+}
+if (keyboard_check_pressed(ord('A'))) {
+    audio_play_sound(snd_confirm, 0, false);
+    var selection = main_menu[| selected];
+    script_execute(selection[1]);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
@@ -31,12 +103,19 @@ draw_set_valign(fa_middle);
 draw_set_color(make_color_rgb(203, 44, 14));
 draw_set_font(fnt_title);
 
-draw_text(room_width / 2, room_height / 3, "Corruption");
+draw_text(room_width / 2, room_height / 4, "Corruption");
 
 draw_set_color(c_white);
 draw_set_font(fnt_option);
 
-draw_text(room_width / 2, room_height * (2 / 3), "Press A to start");
+for (var i = 0; i &lt; ds_list_size(main_menu); i++) {
+    var selection = main_menu[| i];
+    var text = selection[0];
+    if (i == selected) {
+        text = "&gt; " + text + " &lt;";
+    }
+    draw_text(room_width / 2, room_height / 2 + i * 32, text);
+}
 </string>
           </argument>
         </arguments>
@@ -59,8 +138,8 @@ draw_text(room_width / 2, room_height * (2 / 3), "Press A to start");
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>audio_play_sound(snd_confirm, 0, false);
-instance_create(x, y, obj_control);
+            <string>//audio_play_sound(snd_confirm, 0, false);
+//instance_create(x, y, obj_control);
 </string>
           </argument>
         </arguments>
