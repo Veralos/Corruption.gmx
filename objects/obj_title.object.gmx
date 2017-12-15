@@ -29,9 +29,19 @@
 ds_list_add(main_menu,
     scr_menu_item("New", scr_menu_new),
     scr_menu_item("Continue", scr_menu_continue),
-    scr_menu_item("Options", scr_menu_error),
+    scr_menu_item("Options", scr_menu_options),
     scr_menu_item("Quit", scr_menu_quit)
 );
+
+options_menu = ds_list_create();
+ds_list_add(options_menu,
+    scr_menu_item_ext("Fullscreen", scr_menu_fullscreen, scr_addon_fullscreen),
+    scr_menu_item("Sound", scr_menu_error),
+    scr_menu_item("Music", scr_menu_error),
+    scr_menu_item("Back", scr_menu_back)
+);
+
+current_menu = main_menu;
 
 selected = 0;
 </string>
@@ -60,19 +70,19 @@ selected = 0;
     audio_play_sound(snd_select, 0, false);
     selected--;
     if (selected &lt; 0) {
-        selected = ds_list_size(main_menu) - 1;
+        selected = ds_list_size(current_menu) - 1;
     }
 }
 if (keyboard_check_pressed(vk_down)) {
     audio_play_sound(snd_select, 0, false);
     selected++;
-    if (selected &gt; ds_list_size(main_menu) - 1) {
+    if (selected &gt; ds_list_size(current_menu) - 1) {
         selected = 0;
     }
 }
 if (keyboard_check_pressed(ord('A'))) {
     audio_play_sound(snd_confirm, 0, false);
-    var selection = main_menu[| selected];
+    var selection = current_menu[| selected];
     script_execute(selection[1]);
 }
 </string>
@@ -108,38 +118,14 @@ draw_text(room_width / 2, room_height / 4, "Corruption");
 draw_set_color(c_white);
 draw_set_font(fnt_option);
 
-for (var i = 0; i &lt; ds_list_size(main_menu); i++) {
-    var selection = main_menu[| i];
-    var text = selection[0];
+for (var i = 0; i &lt; ds_list_size(current_menu); i++) {
+    var selection = current_menu[| i];
+    var text = selection[0] + script_execute(selection[2]);
     if (i == selected) {
         text = "&gt; " + text + " &lt;";
     }
     draw_text(room_width / 2, room_height / 2 + i * 32, text);
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="65">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>//audio_play_sound(snd_confirm, 0, false);
-//instance_create(x, y, obj_control);
 </string>
           </argument>
         </arguments>

@@ -109,10 +109,16 @@
     <script>scripts\scr_save.gml</script>
     <script>scripts\scr_load.gml</script>
     <script>scripts\scr_menu_item.gml</script>
+    <script>scripts\scr_menu_item_ext.gml</script>
     <script>scripts\scr_menu_error.gml</script>
     <script>scripts\scr_menu_quit.gml</script>
     <script>scripts\scr_menu_continue.gml</script>
     <script>scripts\scr_menu_new.gml</script>
+    <script>scripts\scr_menu_options.gml</script>
+    <script>scripts\scr_menu_back.gml</script>
+    <script>scripts\scr_menu_fullscreen.gml</script>
+    <script>scripts\scr_addon_default.gml</script>
+    <script>scripts\scr_addon_fullscreen.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shad_white.shader</shader>
