@@ -83,7 +83,7 @@ if (ability &lt; 6) {
             hp = 6  - ability;
         }
         state = ability_state;
-        can_press = 120;
+        can_press = 60;
         for (var i = 0; i &lt; ds_list_size(music_list); i++) {
             audio_pause_sound(ds_list_find_value(music_list, i));
         }
