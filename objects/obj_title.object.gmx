@@ -177,7 +177,40 @@ state = base_state;
                 error_time = 120;
             }
         }
+        
+        break;
     case gamepad_state:
+        var button = scr_check_gamepad_buttons();
+        
+        if (!is_undefined(button)) {
+            var supported = true;
+            error_text = "Button is already in use";
+                
+            var current_key = ds_map_find_first(obj_controller.buttons);
+            while (supported &amp;&amp; !is_undefined(ds_map_find_next(obj_controller.buttons, current_key))) {
+                if (!(
+                    current_key == obj_controller.confirm || 
+                    current_key == obj_controller.up ||
+                    current_key == obj_controller.down
+                    )) {
+                    if (ds_map_find_value(obj_controller.buttons, current_key) == button) {
+                        supported = false;
+                    }
+                }
+                current_key = ds_map_find_next(obj_controller.buttons, current_key);
+            }
+            
+            if (supported) {
+                audio_play_sound(snd_confirm, 0, false);
+                ds_map_replace(obj_controller.buttons, to_bind, button);
+                state = base_state;
+            }
+            else {
+                audio_play_sound(snd_error, 0, false);
+                error_time = 120;
+            }
+        }
+    
         break;
 }
 

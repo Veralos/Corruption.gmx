@@ -10,15 +10,15 @@ ds_map_add(gamepad_labels, gp_padl, "D-pad Left");
 ds_map_add(gamepad_labels, gp_padr, "D-pad Right");
 ds_map_add(gamepad_labels, gp_padu, "D-pad Up");
 
-ds_map_add(gamepad_labels, gp_select, "Select");
+ds_map_add(gamepad_labels, gp_select, "Back");
 
-ds_map_add(gamepad_labels, gp_shoulderl, "Left Trigger");
-ds_map_add(gamepad_labels, gp_shoulderr, "Right Trigger");
+ds_map_add(gamepad_labels, gp_shoulderl, "Left Bumper");
+ds_map_add(gamepad_labels, gp_shoulderr, "Right Bumper");
 
-ds_map_add(gamepad_labels, gp_shoulderlb, "Left Bumper");
-ds_map_add(gamepad_labels, gp_shoulderlb, "Right Bumper");
+ds_map_add(gamepad_labels, gp_shoulderlb, "Left Trigger");
+ds_map_add(gamepad_labels, gp_shoulderrb, "Right Trigger");
 
-ds_map_add(gamepad_labels, gp_stickl, "Left Stick Press");
-ds_map_add(gamepad_labels, gp_stickr, "Right Stick Press");
+ds_map_add(gamepad_labels, gp_stickl, "Left Stick");
+ds_map_add(gamepad_labels, gp_stickr, "Right Stick");
 
 return gamepad_labels;
