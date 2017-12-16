@@ -45,8 +45,6 @@ down_button = gp_padd;
 confirm_button = gp_face1;
 cancel_button = gp_start;
 
-action_map = ds_map_create();
-
 left_held = false;
 right_held = false;
 jump_pressed = false;
@@ -143,7 +141,7 @@ cancel_pressed =
         </arguments>
       </action>
     </event>
-    <event eventtype="7" enumb="4">
+    <event eventtype="7" enumb="5">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -160,8 +158,8 @@ cancel_pressed =
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>left_held = false;
-right_held = false;
+            <string>//left_held = false;
+//right_held = false;
 jump_pressed = false;
 jump_released = false;
 attack_pressed = false;
