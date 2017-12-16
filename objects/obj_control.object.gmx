@@ -44,11 +44,11 @@ can_press = 0;
 
 desc_list = ds_list_create();
 ds_list_add(desc_list,
-    "You grew claws! Press A to attack enemies with them.",
-    "You grew wings! Press Up in the air to flap for extra height.",
-    "You grew a tail! Press S in the air to perform a tail dive attack.",
+    "You grew claws! Press " + scr_label(obj_controller.attack) + " to attack enemies with them.",
+    "You grew wings! Press " + scr_label(obj_controller.jump) + " in the air to flap for extra height.",
+    "You grew a tail! Press " + scr_label(obj_controller.dive) + " in the air to perform a tail dive attack.",
     "You grew hooves! Walk in one direction for a short time to start running. While running you will kill enemies.",
-    "You grew horns! Press S on the ground to perform a horn launch attack."
+    "You grew horns! Press " + scr_label(obj_controller.dive) + " on the ground to perform a horn launch attack."
 );
 
 music_list = ds_list_create();
@@ -87,7 +87,13 @@ room_goto(ds_grid_get(room_grid, room_x, room_y));
     can_press --;
 }
 
-if (state == ability_state &amp;&amp; can_press &lt;= 0 &amp;&amp; obj_controller.confirm_pressed) {
+ds_list_replace(desc_list, 0, "You grew claws! Press " + scr_label(obj_controller.attack) + " to attack enemies with them.");
+ds_list_replace(desc_list, 1, "You grew wings! Press " + scr_label(obj_controller.jump) + " in the air to flap for extra height.");
+ds_list_replace(desc_list, 2, "You grew a tail! Press " + scr_label(obj_controller.dive) + " in the air to perform a tail dive attack.");
+ds_list_replace(desc_list, 3, "You grew hooves! Walk in one direction for a short time to start running. While running you will kill enemies.");
+ds_list_replace(desc_list, 4, "You grew horns! Press " + scr_label(obj_controller.dive) + " on the ground to perform a horn launch attack.");
+
+if (state == ability_state &amp;&amp; can_press &lt;= 0 &amp;&amp; keyboard_check(vk_anykey) || !is_undefined(scr_check_gamepad_buttons())) {
     state = base_state;
 }
 
