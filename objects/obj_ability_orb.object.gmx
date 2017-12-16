@@ -74,14 +74,20 @@ instance_create(x, y + 16, obj_pedestal);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>audio_play_sound(snd_collect, 0, false)
+            <string>audio_play_sound(snd_collect, 0, false);
+audio_play_sound(mus_fanfare, 0, false);
 if (ability &lt; 6) {
     obj_control.ability = ability;
-    if (obj_control.hp &gt; 6 - obj_control.ability) {
-        obj_control.hp = 6  - obj_control.ability;
+    with (obj_control) {
+        if (hp &gt; 6 - ability) {
+            hp = 6  - ability;
+        }
+        state = ability_state;
+        can_press = 120;
+        for (var i = 0; i &lt; ds_list_size(music_list); i++) {
+            audio_pause_sound(ds_list_find_value(music_list, i));
+        }
     }
-    obj_control.state = obj_control.ability_state;
-    obj_control.can_press = 120;
     instance_destroy();
 }
 else with (obj_control) {

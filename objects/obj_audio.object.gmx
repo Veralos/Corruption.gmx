@@ -51,6 +51,12 @@ ds_list_add(sound_list,
     snd_select,
     snd_error
 );
+
+music_list = ds_list_create();
+ds_list_add(music_list,
+    mus_title,
+    mus_fanfare
+);
 </string>
           </argument>
         </arguments>

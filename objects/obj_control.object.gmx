@@ -93,7 +93,11 @@ ds_list_replace(desc_list, 2, "You grew a tail! Press " + scr_label(obj_controll
 ds_list_replace(desc_list, 3, "You grew hooves! Walk in one direction for a short time to start running. While running you will kill enemies.");
 ds_list_replace(desc_list, 4, "You grew horns! Press " + scr_label(obj_controller.dive) + " on the ground to perform a horn launch attack.");
 
-if (state == ability_state &amp;&amp; can_press &lt;= 0 &amp;&amp; keyboard_check(vk_anykey) || !is_undefined(scr_check_gamepad_buttons())) {
+if (state == ability_state &amp;&amp; !audio_is_playing(mus_fanfare) &amp;&amp; (keyboard_check(vk_anykey) || !is_undefined(scr_check_gamepad_buttons()))) {
+    audio_play_sound(snd_confirm, 0, false);
+    for (var i = 0; i &lt; ds_list_size(music_list); i++) {
+        audio_resume_sound(ds_list_find_value(music_list, i));
+    }
     state = base_state;
 }
 

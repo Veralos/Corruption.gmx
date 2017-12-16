@@ -30,6 +30,8 @@
     <sound>sound\mus_track5</sound>
     <sound>sound\snd_select</sound>
     <sound>sound\snd_error</sound>
+    <sound>sound\mus_title</sound>
+    <sound>sound\mus_fanfare</sound>
   </sounds>
   <sprites name="sprites">
     <sprite>sprites\spr_wall</sprite>
