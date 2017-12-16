@@ -27,6 +27,10 @@
             <kind>1</kind>
             <string>surface_resize(application_surface, 512, 288);
 
+ini_open("corruption_data");
+window_set_fullscreen(ini_read_real("options", "fullscreen", false));
+ini_close();
+
 instance_create(0, 0, obj_audio);
 instance_create(0, 0, obj_controller);
 

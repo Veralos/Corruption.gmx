@@ -25,8 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>sound_gain = 1;
-music_gain = 1;
+            <string>ini_open("corruption_data");
+sound_gain = clamp(ini_read_real("options", "sound", 1), 0, 1);
+music_gain = clamp(ini_read_real("options", "music", 1), 0, 1);
+ini_close();
 
 sound_list = ds_list_create();
 ds_list_add(sound_list,
@@ -57,6 +59,9 @@ ds_list_add(music_list,
     mus_title,
     mus_fanfare
 );
+
+scr_list_gain(sound_list, sound_gain);
+scr_list_gain(music_list, music_gain);
 </string>
           </argument>
         </arguments>
