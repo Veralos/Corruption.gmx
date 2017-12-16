@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>left_key = vk_left;
+            <string>/*left_key = vk_left;
 right_key = vk_right;
 jump_key = vk_up;
 attack_key = ord('A');
@@ -43,7 +43,40 @@ dive_button = gp_face2;
 up_button = gp_padu;
 down_button = gp_padd;
 confirm_button = gp_face1;
-cancel_button = gp_start;
+cancel_button = gp_start;*/
+
+var i = 0;
+left = i++;
+right = i++;
+jump = i++;
+attack = i++;
+dive = i++;
+up = i++;
+down = i++;
+confirm = i++;
+cancel = i++;
+
+keys = ds_map_create();
+ds_map_add(keys, left, vk_left);
+ds_map_add(keys, right, vk_right);
+ds_map_add(keys, jump, vk_up);
+ds_map_add(keys, attack, ord('A'));
+ds_map_add(keys, dive, ord('S'));
+ds_map_add(keys, up, vk_up);
+ds_map_add(keys, down, vk_down);
+ds_map_add(keys, confirm, ord('A'));
+ds_map_add(keys, cancel, vk_escape);
+
+buttons = ds_map_create();
+ds_map_add(buttons, left, gp_padl);
+ds_map_add(buttons, right, gp_padr);
+ds_map_add(buttons, jump, gp_face1);
+ds_map_add(buttons, attack, gp_face3);
+ds_map_add(buttons, dive, gp_face2);
+ds_map_add(buttons, up, gp_padu);
+ds_map_add(buttons, down, gp_padd);
+ds_map_add(buttons, confirm, gp_face1);
+ds_map_add(buttons, cancel, gp_start);
 
 left_held = false;
 right_held = false;
@@ -103,39 +136,39 @@ confirm_pressed = false;
 cancel_pressed = false;
 
 left_held = 
-    keyboard_check(left_key) || 
-    gamepad_button_check(0, left_button) || 
+    keyboard_check_direct(ds_map_find_value(keys, left)) || 
+    gamepad_button_check(0, ds_map_find_value(buttons, left)) || 
     gamepad_axis_value(0, gp_axislh) &lt; 0;
 right_held = 
-    keyboard_check(right_key) || 
-    gamepad_button_check(0, right_button) || 
+    keyboard_check_direct(ds_map_find_value(keys, right)) || 
+    gamepad_button_check(0, ds_map_find_value(buttons, right)) || 
     gamepad_axis_value(0, gp_axislh) &gt; 0;
 jump_pressed = 
-    keyboard_check_pressed(jump_key) || 
-    gamepad_button_check_pressed(0, jump_button);
+    keyboard_check_pressed(ds_map_find_value(keys, jump)) || 
+    gamepad_button_check_pressed(0, ds_map_find_value(buttons, jump));
 jump_released = 
-    keyboard_check_released(jump_key) || 
-    gamepad_button_check_released(0, jump_button);
+    keyboard_check_released(ds_map_find_value(keys, jump)) || 
+    gamepad_button_check_released(0, ds_map_find_value(buttons, jump));
 attack_pressed = 
-    keyboard_check_pressed(attack_key) || 
-    gamepad_button_check_pressed(0, attack_button);
+    keyboard_check_pressed(ds_map_find_value(keys, attack)) || 
+    gamepad_button_check_pressed(0, ds_map_find_value(buttons, attack));
 dive_pressed = 
-    keyboard_check_pressed(dive_key) || 
-    gamepad_button_check_pressed(0, dive_button);
+    keyboard_check_pressed(ds_map_find_value(keys, dive)) || 
+    gamepad_button_check_pressed(0, ds_map_find_value(buttons, dive));
 up_pressed = 
-    keyboard_check_pressed(up_key) || 
-    gamepad_button_check_pressed(0, up_button) ||
+    keyboard_check_pressed(ds_map_find_value(keys, up)) || 
+    gamepad_button_check_pressed(0, ds_map_find_value(buttons, up)) ||
     leftstick_up_pressed;
 down_pressed = 
-    keyboard_check_pressed(down_key) || 
-    gamepad_button_check_pressed(0, down_button) ||
+    keyboard_check_pressed(ds_map_find_value(keys, down)) || 
+    gamepad_button_check_pressed(0, ds_map_find_value(buttons, down)) ||
     leftstick_down_pressed;
 confirm_pressed = 
-    keyboard_check_pressed(confirm_key) || 
-    gamepad_button_check_pressed(0, confirm_button);
+    keyboard_check_pressed(ds_map_find_value(keys, confirm)) || 
+    gamepad_button_check_pressed(0, ds_map_find_value(buttons, confirm));
 cancel_pressed = 
-    keyboard_check_pressed(cancel_key) || 
-    gamepad_button_check_pressed(0, cancel_button);
+    keyboard_check_pressed(ds_map_find_value(keys, cancel)) || 
+    gamepad_button_check_pressed(0, ds_map_find_value(buttons, cancel));
 </string>
           </argument>
         </arguments>

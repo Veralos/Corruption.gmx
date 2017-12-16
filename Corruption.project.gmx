@@ -120,6 +120,8 @@
       <script>scripts\scr_menu_controls.gml</script>
       <script>scripts\scr_menu_keyboard.gml</script>
       <script>scripts\scr_menu_gamepad.gml</script>
+      <script>scripts\scr_menu_keyboard_bind.gml</script>
+      <script>scripts\scr_menu_gamepad_bind.gml</script>
       <script>scripts\scr_menu_back.gml</script>
       <script>scripts\scr_menu_fullscreen.gml</script>
       <script>scripts\scr_menu_sound.gml</script>

@@ -51,21 +51,21 @@ ds_list_add(controls_menu,
  
 keyboard_menu = ds_list_create();
 ds_list_add(keyboard_menu,
-    scr_menu_item_ext2("Move Left", scr_menu_error, scr_addon_keyboard, obj_controller.left_key),
-    scr_menu_item_ext2("Move Right", scr_menu_error, scr_addon_keyboard, obj_controller.right_key),
-    scr_menu_item_ext2("Jump", scr_menu_error, scr_addon_keyboard, obj_controller.jump_key),
-    scr_menu_item_ext2("Attack", scr_menu_error, scr_addon_keyboard, obj_controller.attack_key),
-    scr_menu_item_ext2("Dive/Launch", scr_menu_error, scr_addon_keyboard, obj_controller.dive_key),
+    scr_menu_item_ext2("Move Left", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.left),
+    scr_menu_item_ext2("Move Right", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.right),
+    scr_menu_item_ext2("Jump", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.jump),
+    scr_menu_item_ext2("Attack", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.attack),
+    scr_menu_item_ext2("Dive/Launch", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.dive),
     scr_menu_item("Back", scr_menu_back)
 );
 
 gamepad_menu = ds_list_create();
 ds_list_add(gamepad_menu,
-    scr_menu_item_ext2("Move Left (Alt)", scr_menu_error, scr_addon_gamepad, obj_controller.left_button),
-    scr_menu_item_ext2("Move Right (Alt)", scr_menu_error, scr_addon_gamepad, obj_controller.right_button),
-    scr_menu_item_ext2("Jump", scr_menu_error, scr_addon_gamepad, obj_controller.jump_button),
-    scr_menu_item_ext2("Attack", scr_menu_error, scr_addon_gamepad, obj_controller.attack_button),
-    scr_menu_item_ext2("Dive/Launch", scr_menu_error, scr_addon_gamepad, obj_controller.dive_button),
+    scr_menu_item_ext2("Move Left (Alt)", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.left),
+    scr_menu_item_ext2("Move Right (Alt)", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.right),
+    scr_menu_item_ext2("Jump", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.jump),
+    scr_menu_item_ext2("Attack", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.attack),
+    scr_menu_item_ext2("Dive/Launch", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.dive),
     scr_menu_item("Back", scr_menu_back)
 );
 
@@ -76,6 +76,17 @@ selected = 0;
 
 gamepad_labels = scr_generate_gamepad_labels();
 keyboard_labels = scr_generate_key_labels();
+
+to_bind = -1;
+bind_name = "";
+error_text = "";
+error_time = 0;
+
+base_state = 0;
+keyboard_state = 1;
+gamepad_state = 2;
+
+state = base_state;
 </string>
           </argument>
         </arguments>
@@ -98,33 +109,86 @@ keyboard_labels = scr_generate_key_labels();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (obj_controller.up_pressed) {
-    audio_play_sound(snd_select, 0, false);
-    selected--;
-    if (selected &lt; 0) {
-        selected = ds_list_size(current_menu) - 1;
-    }
+            <string>switch (state) {
+    case base_state:
+        if (obj_controller.up_pressed) {
+            audio_play_sound(snd_select, 0, false);
+            selected--;
+            if (selected &lt; 0) {
+                selected = ds_list_size(current_menu) - 1;
+            }
+        }
+        if (obj_controller.down_pressed) {
+            audio_play_sound(snd_select, 0, false);
+            selected++;
+            if (selected &gt; ds_list_size(current_menu) - 1) {
+                selected = 0;
+            }
+        }
+        if (obj_controller.confirm_pressed) {
+            audio_play_sound(snd_confirm, 0, false);
+            var selection = current_menu[| selected];
+            if (array_length_1d(selection) &gt; 3) {
+                script_execute(selection[1], selection[0], selection[3]);
+            }
+            else {
+                script_execute(selection[1]);
+            }
+        }
+        if (obj_controller.cancel_pressed) {
+            if (current_menu == main_menu) {
+                game_end();
+            }
+            else {
+                audio_play_sound(snd_cancel, 0, false);
+                scr_menu_back();
+            }
+        }
+        
+        break;
+    case keyboard_state:
+        if (keyboard_check_pressed(vk_anykey)) {
+            var key = keyboard_key;
+            var supported = true;
+            
+            if (is_undefined(ds_map_find_value(keyboard_labels, key))) {
+                supported = false
+                error_text = "Key is not supported";
+            }
+            else { 
+                error_text = "Key is already in use";
+                
+                var current_key = ds_map_find_first(obj_controller.keys);
+                while (supported &amp;&amp; !is_undefined(ds_map_find_next(obj_controller.keys, current_key))) {
+                    if (ds_map_find_value(obj_controller.keys, current_key) == key) {
+                        supported = false;
+                    }
+                    current_key = ds_map_find_next(obj_controller.keys, current_key);
+                }
+            }
+            
+            if (supported) {
+                audio_play_sound(snd_confirm, 0, false);
+                ds_map_replace(obj_controller.keys, to_bind, key);
+                state = base_state;
+            }
+            else {
+                audio_play_sound(snd_error, 0, false);
+                error_time = 120;
+            }
+        }
+    case gamepad_state:
+        break;
 }
-if (obj_controller.down_pressed) {
-    audio_play_sound(snd_select, 0, false);
-    selected++;
-    if (selected &gt; ds_list_size(current_menu) - 1) {
-        selected = 0;
-    }
+
+if (state != base_state &amp;&amp; obj_controller.cancel_pressed) {
+    audio_stop_sound(snd_error);
+    audio_play_sound(snd_cancel, 0, false);
+    state = base_state;
 }
-if (obj_controller.confirm_pressed) {
-    audio_play_sound(snd_confirm, 0, false);
-    var selection = current_menu[| selected];
-    script_execute(selection[1]);
-}
-if (obj_controller.cancel_pressed) {
-    if (current_menu == main_menu) {
-        game_end();
-    }
-    else {
-        audio_play_sound(snd_cancel, 0, false);
-        scr_menu_back();
-    }
+
+if (error_time &gt; 0) {
+    error_time--;
 }
 </string>
           </argument>
@@ -173,6 +237,31 @@ for (var i = 0; i &lt; ds_list_size(current_menu); i++) {
         text = "&gt; " + text + " &lt;";
     }
     draw_text(room_width / 2, room_height / 2 + i * 24, text);
+}
+
+if (state != base_state) {
+    draw_set_alpha(0.75);
+    draw_set_color(c_black);
+    
+    draw_rectangle(0, 0, room_width, room_height, false);
+    
+    draw_set_alpha(1);
+    draw_set_color(c_white);
+    
+    var type = "key";
+    var cancel = "Escape";
+    if (state == gamepad_state) {
+        type = "button";
+        cancel = "Start (or Escape)";
+    }
+    
+    draw_text(room_width / 2, room_height / 5, "Press new " + bind_name + " " + type);
+    draw_text(room_width / 2, room_height * (4 / 5), "Press " + cancel + " to cancel");
+    
+    if (error_time &gt; 0) {
+        draw_set_color(c_red);
+        draw_text(room_width / 2, room_height / 2, error_text);
+    }
 }
 </string>
           </argument>
