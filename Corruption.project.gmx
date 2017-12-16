@@ -101,6 +101,7 @@
     <sprite>sprites\spr_wall_edge</sprite>
     <sprite>sprites\spr_splash</sprite>
     <sprite>sprites\spr_sign</sprite>
+    <sprite>sprites\spr_sign2</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -139,6 +140,9 @@
     <script>scripts\scr_generate_gamepad_labels.gml</script>
     <script>scripts\scr_generate_key_labels.gml</script>
     <script>scripts\scr_check_gamepad_buttons.gml</script>
+    <script>scripts\scr_label.gml</script>
+    <script>scripts\scr_gamepad_label.gml</script>
+    <script>scripts\scr_check_gamepad.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shad_white.shader</shader>
@@ -148,6 +152,7 @@
     <font>fonts\fnt_ability</font>
     <font>fonts\fnt_option</font>
     <font>fonts\fnt_description</font>
+    <font>fonts\fnt_sign</font>
   </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>

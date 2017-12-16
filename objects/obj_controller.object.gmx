@@ -69,10 +69,15 @@ down_pressed = false;
 confirm_pressed = false;
 cancel_pressed = false;
 
+gamepad_labels = scr_generate_gamepad_labels();
+keyboard_labels = scr_generate_key_labels();
+
 gamepad_set_axis_deadzone(0, 0.3);
 
 leftstick_up_held = gamepad_axis_value(0, gp_axislv) &lt; 0;
 leftstick_down_held = gamepad_axis_value(0, gp_axislv) &lt; 0;
+
+gamepad = false;
 </string>
           </argument>
         </arguments>
@@ -150,6 +155,8 @@ confirm_pressed =
 cancel_pressed = 
     keyboard_check_pressed(vk_escape) || 
     gamepad_button_check_pressed(0, gp_start);
+    
+gamepad = scr_check_gamepad(gamepad);
 </string>
           </argument>
         </arguments>

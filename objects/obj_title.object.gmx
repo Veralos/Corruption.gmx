@@ -74,9 +74,6 @@ menu_stack = ds_stack_create();
 
 selected = 0;
 
-gamepad_labels = scr_generate_gamepad_labels();
-keyboard_labels = scr_generate_key_labels();
-
 to_bind = -1;
 bind_name = "";
 error_text = "";
@@ -159,7 +156,7 @@ accept_input = true;
             var key = keyboard_key;
             var supported = true;
             
-            if (is_undefined(ds_map_find_value(keyboard_labels, key))) {
+            if (is_undefined(ds_map_find_value(obj_controller.keyboard_labels, key))) {
                 supported = false
                 error_text = "Key is not supported";
             }
