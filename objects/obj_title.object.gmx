@@ -177,6 +177,11 @@ audio_play_sound(mus_title, 0, true);
             if (supported) {
                 audio_play_sound(snd_confirm, 0, false);
                 ds_map_replace(obj_controller.keys, to_bind, key);
+                
+                ini_open("corruption_data");
+                ini_write_real("keyboard", "key" + string(to_bind), key);
+                ini_close();
+                
                 state = base_state;
                 accept_input = false;
             }
@@ -205,6 +210,11 @@ audio_play_sound(mus_title, 0, true);
             if (supported) {
                 audio_play_sound(snd_confirm, 0, false);
                 ds_map_replace(obj_controller.buttons, to_bind, button);
+                
+                ini_open("corruption_data");
+                ini_write_real("gamepad", "button" + string(to_bind), button);
+                ini_close();
+                
                 state = base_state;
                 accept_input = false;
             }

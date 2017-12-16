@@ -36,23 +36,25 @@ down = i++;
 confirm = i++;
 cancel = i++;
 
+ini_open("corruption_data");
+
 keys = ds_map_create();
-ds_map_add(keys, left, vk_left);
-ds_map_add(keys, right, vk_right);
-ds_map_add(keys, jump, vk_up);
-ds_map_add(keys, attack, ord('A'));
-ds_map_add(keys, dive, ord('S'));
+ds_map_add(keys, left, ini_read_real("keyboard", "key" + string(left), vk_left));
+ds_map_add(keys, right, ini_read_real("keyboard", "key" + string(right), vk_right));
+ds_map_add(keys, jump, ini_read_real("keyboard", "key" + string(jump), vk_up));
+ds_map_add(keys, attack, ini_read_real("keyboard", "key" + string(attack), ord('A')));
+ds_map_add(keys, dive, ini_read_real("keyboard", "key" + string(dive), ord('S')));
 /*ds_map_add(keys, up, vk_up);
 ds_map_add(keys, down, vk_down);
 ds_map_add(keys, confirm, ord('A'));
 ds_map_add(keys, cancel, vk_escape);*/
 
 buttons = ds_map_create();
-ds_map_add(buttons, left, gp_padl);
-ds_map_add(buttons, right, gp_padr);
-ds_map_add(buttons, jump, gp_face1);
-ds_map_add(buttons, attack, gp_face3);
-ds_map_add(buttons, dive, gp_face2);
+ds_map_add(buttons, left, ini_read_real("gamepad", "button" + string(left), gp_padl));
+ds_map_add(buttons, right, ini_read_real("gamepad", "button" + string(right), gp_padr));
+ds_map_add(buttons, jump, ini_read_real("gamepad", "button" + string(jump), gp_face1));
+ds_map_add(buttons, attack, ini_read_real("gamepad", "button" + string(attack), gp_face3));
+ds_map_add(buttons, dive, ini_read_real("gamepad", "button" + string(dive), gp_face2));
 /*ds_map_add(buttons, up, gp_padu);
 ds_map_add(buttons, down, gp_padd);
 ds_map_add(buttons, confirm, gp_face1);
