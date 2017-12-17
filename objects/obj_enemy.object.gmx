@@ -78,11 +78,13 @@ for (var i = 0; i &lt; 15; i++) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (stagger &gt; 0) {
-    stagger--;
-}
-else {
-    event_user(1);
+            <string>if (obj_control.state == obj_control.base_state) {
+    if (stagger &gt; 0) {
+        stagger--;
+    }
+    else {
+        event_user(1);
+    }
 }
 </string>
           </argument>

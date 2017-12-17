@@ -37,6 +37,7 @@ hp = 6 - ability;
 
 base_state = 0;
 ability_state = 1;
+pause_state = 2;
 
 state = base_state;
 
@@ -93,59 +94,73 @@ ds_list_replace(desc_list, 2, "You grew a tail! Press " + scr_label(obj_controll
 ds_list_replace(desc_list, 3, "You grew hooves! Walk in one direction for a short time to start running. While running you will kill enemies.");
 ds_list_replace(desc_list, 4, "You grew horns! Press " + scr_label(obj_controller.dive) + " on the ground to perform a horn launch attack.");
 
-if (state == ability_state &amp;&amp; can_press &lt;= 0 &amp;&amp; (keyboard_check(vk_anykey) || !is_undefined(scr_check_gamepad_buttons()))) {
-    audio_stop_sound(mus_fanfare);
-    audio_play_sound(snd_confirm, 0, false);
-    for (var i = 0; i &lt; ds_list_size(music_list); i++) {
-        audio_resume_sound(ds_list_find_value(music_list, i));
-    }
-    state = base_state;
-}
-
-var goto = false;
-var p_y = obj_player.y + 16;
-
-if (obj_player.x &gt; room_width) {
-    room_x++;
-    obj_player.x -= room_width;
-    goto = true;
-}
-else if (obj_player.x &lt; 0) {
-    room_x--;
-    obj_player.x += room_width;
-    goto = true;
-}
-if (p_y &gt; room_height) {
-    room_y++;
-    p_y -= room_height;
-    goto = true;
-}
-else if (p_y &lt; 0) {
-    room_y--;
-    p_y += room_height;
-    obj_player.y_speed = -5;
-    goto = true;
-}
-
-obj_player.y = p_y - 16;
-
-if (obj_controller.cancel_pressed) {
-    audio_play_sound(snd_cancel, 0, false);
-    goto = false;
-    persistent = false;
-    obj_player.persistent = false;
-    room_goto(rm_title);
-}
-else if (hp &lt;= 0) {
-    audio_play_sound(snd_die, 0, false);
-    goto = false;
-    persistent = false;
-    obj_player.persistent = false;
-    room_goto(rm_game_over);
-}
-
-if (goto) {
-    room_goto(ds_grid_get(room_grid, room_x, room_y));
+switch (state) {
+    case ability_state:
+        if (can_press &lt;= 0 &amp;&amp; (keyboard_check(vk_anykey) || !is_undefined(scr_check_gamepad_buttons()))) {
+            audio_stop_sound(mus_fanfare);
+            audio_play_sound(snd_confirm, 0, false);
+            for (var i = 0; i &lt; ds_list_size(music_list); i++) {
+                audio_resume_sound(ds_list_find_value(music_list, i));
+            }
+            state = base_state;
+        }
+        
+        break;
+    case base_state:
+        var goto = false;
+        var p_y = obj_player.y + 16;
+        
+        if (obj_player.x &gt; room_width) {
+            room_x++;
+            obj_player.x -= room_width;
+            goto = true;
+        }
+        else if (obj_player.x &lt; 0) {
+            room_x--;
+            obj_player.x += room_width;
+            goto = true;
+        }
+        if (p_y &gt; room_height) {
+            room_y++;
+            p_y -= room_height;
+            goto = true;
+        }
+        else if (p_y &lt; 0) {
+            room_y--;
+            p_y += room_height;
+            obj_player.y_speed = -5;
+            goto = true;
+        }
+        
+        obj_player.y = p_y - 16;
+        
+        if (obj_controller.cancel_pressed) {
+            audio_play_sound(snd_cancel, 0, false);
+            /*goto = false;
+            persistent = false;
+            obj_player.persistent = false;
+            room_goto(rm_title);*/
+            state = pause_state;
+        }
+        else if (hp &lt;= 0) {
+            audio_play_sound(snd_die, 0, false);
+            goto = false;
+            persistent = false;
+            obj_player.persistent = false;
+            room_goto(rm_game_over);
+        }
+        
+        if (goto) {
+            room_goto(ds_grid_get(room_grid, room_x, room_y));
+        }
+        
+        break;
+    case pause_state:
+        if (obj_controller.cancel_pressed) {
+            state = base_state;
+        }
+        
+        break;
 }
 </string>
           </argument>
@@ -248,22 +263,32 @@ for (var i = 0; i &lt; 6; i++) {
     draw_sprite(spr_heart, frame, start_x + 32 * i, 16);
 }
 
-if (state == ability_state) {
-    draw_set_alpha(0.5);
-    draw_set_color(c_black);
-    draw_rectangle(0, 0, room_width, room_height, false);
-    draw_set_alpha(1);
+switch (state) {
+    case ability_state:
+        draw_set_alpha(0.5);
+        draw_set_color(c_black);
+        draw_rectangle(0, 0, room_width, room_height, false);
+        draw_set_alpha(1);
+        
+        draw_sprite(spr_splash, 0, 0, 0);
+        
+        draw_set_color(c_white);
+        draw_set_font(fnt_ability);
+        
+        draw_text(room_width / 2, room_height / 3, "Corruption#Increased");
+        
+        draw_set_font(fnt_description);
+        
+        draw_text_ext(room_width / 2, room_height * (2 / 3), ds_list_find_value(desc_list, ability - 1), -1, 250);
     
-    draw_sprite(spr_splash, 0, 0, 0);
-    
-    draw_set_color(c_white);
-    draw_set_font(fnt_ability);
-    
-    draw_text(room_width / 2, room_height / 3, "Corruption#Increased");
-    
-    draw_set_font(fnt_description);
-    
-    draw_text_ext(room_width / 2, room_height * (2 / 3), ds_list_find_value(desc_list, ability - 1), -1, 250);
+        break;
+    case pause_state:
+        draw_set_alpha(0.5);
+        draw_set_color(c_black);
+        draw_rectangle(0, 0, room_width, room_height, false);
+        draw_set_alpha(1);
+        
+        break;
 }
 </string>
           </argument>

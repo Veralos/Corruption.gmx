@@ -25,10 +25,39 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>direction = 45 + random(90);
-speed = 3 + random(2);
-gravity = 0.25;
+            <string>var dir = 45 + random(90);
+var spd = 3 + random(2);
+speed_x = lengthdir_x(spd, dir);
+speed_y = lengthdir_y(spd, dir);
+grav = 0.25;
 image_angle = random(360);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (obj_control.state == obj_control.base_state) {
+    x += speed_x;
+    y += speed_y;
+    speed_y += grav;
+}
 </string>
           </argument>
         </arguments>

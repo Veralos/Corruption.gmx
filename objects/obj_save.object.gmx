@@ -49,7 +49,13 @@ image_speed = 1/2;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if (!can_save) {
+            <string>if (obj_control.state == obj_control.base_state) {
+    image_speed = 0.5;
+}
+else {
+    image_speed = 0;
+}
+if (!can_save) {
     sprite_index = spr_save_point_2;
 }
 </string>
