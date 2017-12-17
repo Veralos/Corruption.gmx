@@ -79,6 +79,12 @@ gamepad_set_axis_deadzone(0, 0.3);
 leftstick_up_held = gamepad_axis_value(0, gp_axislv) &lt; 0;
 leftstick_down_held = gamepad_axis_value(0, gp_axislv) &lt; 0;
 
+vibrate_amount = 0;
+vibrate_time = 0;
+vibrate = ini_read_real("options", "vibration", false);
+
+ini_close();
+
 gamepad = false;
 </string>
           </argument>
@@ -161,6 +167,36 @@ cancel_pressed =
     gamepad_button_check_pressed(0, gp_start);
     
 gamepad = scr_check_gamepad(gamepad);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="3" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if (vibrate_time &gt; 0) {
+    gamepad_set_vibration(0, vibrate_amount, vibrate_amount);
+    vibrate_time--;
+}
+else {
+    vibrate_amount = 0;
+    gamepad_set_vibration(vibrate_amount, 0, 0);
+}
 </string>
           </argument>
         </arguments>

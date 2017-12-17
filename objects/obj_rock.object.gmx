@@ -26,6 +26,7 @@
           <argument>
             <kind>1</kind>
             <string>audio_play_sound(snd_smash, 0, false);
+scr_vibrate(0.2, 10);
 for (var i = 0; i &lt; 5; i++) {
     instance_create(x + 8, y + 8, obj_part);
 }

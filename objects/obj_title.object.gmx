@@ -39,6 +39,7 @@ ds_list_add(options_menu,
     scr_menu_item_ext("Fullscreen", scr_menu_fullscreen, scr_addon_fullscreen),
     scr_menu_item_ext("Sound", scr_menu_sound, scr_addon_sound),
     scr_menu_item_ext("Music", scr_menu_music, scr_addon_music),
+    scr_menu_item_ext("Gamepad Vibration", scr_menu_vibration, scr_addon_vibration),
     scr_menu_item("Back", scr_menu_back)
 );
 
@@ -73,6 +74,7 @@ current_menu = main_menu;
 menu_stack = ds_stack_create();
 
 selected = 0;
+selected_stack = ds_stack_create();
 
 to_bind = -1;
 bind_name = "";

@@ -50,6 +50,7 @@ facing = 1;
           <argument>
             <kind>1</kind>
             <string>audio_play_sound(snd_enemy_die, 0, false);
+scr_vibrate(0.3, 10);
 for (var i = 0; i &lt; 15; i++) {
     with (instance_create(x, y, obj_part)) {
         sprite_index = spr_enemy_part;

@@ -76,6 +76,7 @@ instance_create(x, y + 16, obj_pedestal);
             <kind>1</kind>
             <string>audio_play_sound(snd_collect, 0, false);
 audio_play_sound(mus_fanfare, 0, false);
+scr_vibrate(0.3, 10);
 if (ability &lt; 6) {
     obj_control.ability = ability;
     with (obj_control) {

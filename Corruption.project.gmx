@@ -129,12 +129,14 @@
       <script>scripts\scr_menu_fullscreen.gml</script>
       <script>scripts\scr_menu_sound.gml</script>
       <script>scripts\scr_menu_music.gml</script>
+      <script>scripts\scr_menu_vibration.gml</script>
     </scripts>
     <scripts name="addon">
       <script>scripts\scr_addon_default.gml</script>
       <script>scripts\scr_addon_fullscreen.gml</script>
       <script>scripts\scr_addon_sound.gml</script>
       <script>scripts\scr_addon_music.gml</script>
+      <script>scripts\scr_addon_vibration.gml</script>
       <script>scripts\scr_addon_gamepad.gml</script>
       <script>scripts\scr_addon_keyboard.gml</script>
     </scripts>
@@ -145,6 +147,7 @@
     <script>scripts\scr_label.gml</script>
     <script>scripts\scr_gamepad_label.gml</script>
     <script>scripts\scr_check_gamepad.gml</script>
+    <script>scripts\scr_vibrate.gml</script>
   </scripts>
   <shaders name="shaders">
     <shader type="GLSLES">shaders\shad_white.shader</shader>
