@@ -3,7 +3,7 @@
   <spriteName>&lt;undefined&gt;</spriteName>
   <solid>0</solid>
   <visible>-1</visible>
-  <depth>0</depth>
+  <depth>-2000</depth>
   <persistent>0</persistent>
   <parentName>obj_menu</parentName>
   <maskName>&lt;undefined&gt;</maskName>
@@ -27,16 +27,13 @@
             <kind>1</kind>
             <string>main_menu = ds_list_create();
 ds_list_add(main_menu,
-    scr_menu_item("New", scr_menu_new),
-    scr_menu_item("Continue", scr_menu_continue),
+    scr_menu_item("Resume", scr_menu_resume),
     scr_menu_item("Options", scr_menu_options),
     scr_menu_item("Control Config", scr_menu_controls),
-    scr_menu_item("Quit", scr_menu_quit)
+    scr_menu_item("Return to Title", scr_menu_return)
 );
 
 event_inherited();
-
-audio_play_sound(mus_title, 0, true);
 </string>
           </argument>
         </arguments>
@@ -59,30 +56,13 @@ audio_play_sound(mus_title, 0, true);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>game_end();
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="5">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>audio_stop_sound(mus_title);
+            <string>with (obj_control) {
+    for (var i = 0; i &lt; ds_list_size(music_list); i++) {
+        audio_resume_sound(ds_list_find_value(music_list, i));
+    }
+    event_user(0);
+    state = base_state;
+}
 </string>
           </argument>
         </arguments>
@@ -111,7 +91,7 @@ draw_set_valign(fa_middle);
 draw_set_color(make_color_rgb(203, 44, 14));
 draw_set_font(fnt_title);
 
-draw_text(room_width / 2, room_height / 4, "Corruption");
+draw_text(room_width / 2, room_height / 4, "Paused");
 
 event_inherited();
 </string>
