@@ -281,6 +281,13 @@ for (var _exit = 0; _exit &lt; array_length_1d(exits); _exit++) {
     }
 }
 
+if (instance_exists(obj_save)) {
+    room_val += power(2, 5);
+}
+if (instance_exists(obj_ability_orb)) {
+    room_val += power(2, 6);
+}
+
 ds_grid_set(map_grid, room_x, room_y, room_val);
 
 event_user(0);
