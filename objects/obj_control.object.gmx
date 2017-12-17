@@ -30,11 +30,12 @@
 room_x = 4;
 room_y = 0;
 ability = 0;
+map_grid = ds_grid_create(9, 5);
 
 scr_load();
 
-map_grid = ds_grid_create(9, 5);
-ds_grid_clear(map_grid, 0);
+flash = true;
+flash_timer = 0;
 
 hp = 6 - ability;
 
@@ -90,6 +91,14 @@ room_goto(ds_grid_get(room_grid, room_x, room_y));
             <kind>1</kind>
             <string>if (can_press &gt; 0) {
     can_press --;
+}
+
+if (flash_timer &gt; 0) {
+    flash_timer--;
+}
+else {
+    flash = !flash;
+    flash_timer = 10;
 }
 
 ds_list_replace(desc_list, 0, "You grew claws! Press " + scr_label(obj_controller.attack) + " to attack enemies with them.");
@@ -358,7 +367,7 @@ switch (state) {
         draw_rectangle(0, 0, room_width, room_height, false);
         draw_set_alpha(1);
         
-        scr_draw_map(room_width / 2, room_height / 2, map_grid);
+        scr_draw_map(room_width / 2, room_height / 2, map_grid, room_x, room_y, flash);
         
         break;
 }
