@@ -48,6 +48,7 @@ ds_list_add(keyboard_menu,
     scr_menu_item_ext2("Jump", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.jump),
     scr_menu_item_ext2("Attack", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.attack),
     scr_menu_item_ext2("Dive/Launch", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.dive),
+    scr_menu_item_ext2("Map", scr_menu_keyboard_bind, scr_addon_keyboard, obj_controller.map),
     scr_menu_item("Back", scr_menu_back)
 );
 
@@ -58,6 +59,7 @@ ds_list_add(gamepad_menu,
     scr_menu_item_ext2("Jump", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.jump),
     scr_menu_item_ext2("Attack", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.attack),
     scr_menu_item_ext2("Dive/Launch", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.dive),
+    scr_menu_item_ext2("Map", scr_menu_gamepad_bind, scr_addon_gamepad, obj_controller.map),
     scr_menu_item("Back", scr_menu_back)
 );
 
@@ -268,7 +270,7 @@ for (var i = 0; i &lt; ds_list_size(current_menu); i++) {
     if (i == selected) {
         text = "&gt; " + text + " &lt;";
     }
-    draw_text(room_width / 2, room_height / 2 + i * 24, text);
+    draw_text(room_width / 2, room_height / 2 + i * 20, text);
 }
 
 if (state != base_state) {

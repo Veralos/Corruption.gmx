@@ -31,6 +31,7 @@ right = i++;
 jump = i++;
 attack = i++;
 dive = i++;
+map = i++;
 up = i++;
 down = i++;
 confirm = i++;
@@ -44,6 +45,7 @@ ds_map_add(keys, right, ini_read_real("keyboard", "key" + string(right), vk_righ
 ds_map_add(keys, jump, ini_read_real("keyboard", "key" + string(jump), vk_up));
 ds_map_add(keys, attack, ini_read_real("keyboard", "key" + string(attack), ord('A')));
 ds_map_add(keys, dive, ini_read_real("keyboard", "key" + string(dive), ord('S')));
+ds_map_add(keys, map, ini_read_real("keyboard", "key" + string(map), vk_space));
 /*ds_map_add(keys, up, vk_up);
 ds_map_add(keys, down, vk_down);
 ds_map_add(keys, confirm, ord('A'));
@@ -55,6 +57,7 @@ ds_map_add(buttons, right, ini_read_real("gamepad", "button" + string(right), gp
 ds_map_add(buttons, jump, ini_read_real("gamepad", "button" + string(jump), gp_face1));
 ds_map_add(buttons, attack, ini_read_real("gamepad", "button" + string(attack), gp_face3));
 ds_map_add(buttons, dive, ini_read_real("gamepad", "button" + string(dive), gp_face2));
+ds_map_add(buttons, map, ini_read_real("gamepad", "button" + string(map), gp_select));
 /*ds_map_add(buttons, up, gp_padu);
 ds_map_add(buttons, down, gp_padd);
 ds_map_add(buttons, confirm, gp_face1);
@@ -66,6 +69,7 @@ jump_pressed = false;
 jump_released = false;
 attack_pressed = false;
 dive_pressed = false;
+map_pressed = false;
 up_pressed = false;
 down_pressed = false;
 confirm_pressed = false;
@@ -123,12 +127,13 @@ jump_pressed = false;
 jump_released = false;
 attack_pressed = false;
 dive_pressed = false;
+map_pressed = false;
 up_pressed = false;
 down_pressed = false;
 confirm_pressed = false;
 cancel_pressed = false;
 
-if (!instance_exists(obj_control) || obj_control.state == obj_control.base_state) {
+if (true/*!instance_exists(obj_control) || obj_control.state == obj_control.base_state*/) {
     left_held = 
         keyboard_check_direct(ds_map_find_value(keys, left)) || 
         gamepad_button_check(0, ds_map_find_value(buttons, left)) || 
@@ -149,6 +154,9 @@ if (!instance_exists(obj_control) || obj_control.state == obj_control.base_state
     dive_pressed = 
         keyboard_check_pressed(ds_map_find_value(keys, dive)) || 
         gamepad_button_check_pressed(0, ds_map_find_value(buttons, dive));
+    map_pressed = 
+        keyboard_check_pressed(ds_map_find_value(keys, map)) || 
+        gamepad_button_check_pressed(0, ds_map_find_value(buttons, map));
 }
 
 up_pressed = 
@@ -225,6 +233,7 @@ jump_pressed = false;
 jump_released = false;
 attack_pressed = false;
 dive_pressed = false;
+map_pressed = false;
 up_pressed = false;
 down_pressed = false;
 confirm_pressed = false;
