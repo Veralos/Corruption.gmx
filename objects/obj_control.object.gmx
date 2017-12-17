@@ -6,7 +6,7 @@
   <depth>-1000</depth>
   <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
-  <maskName>&lt;undefined&gt;</maskName>
+  <maskName>spr_wall</maskName>
   <events>
     <event eventtype="0" enumb="0">
       <action>
@@ -33,11 +33,15 @@ ability = 0;
 
 scr_load();
 
+map_grid = ds_grid_create(9, 5);
+ds_grid_clear(map_grid, 0);
+
 hp = 6 - ability;
 
 base_state = 0;
 ability_state = 1;
 pause_state = 2;
+map_state = 3;
 
 state = base_state;
 
@@ -251,6 +255,23 @@ switch (state) {
 
 instance_create(0, 0, obj_background);
 
+var room_val = 1;
+
+var exits;
+var i = 0;
+exits[i++] = scr_hor_exit(room_width - 16);
+exits[i++] = scr_ver_exit(0);
+exits[i++] = scr_hor_exit(0);
+exits[i++] = scr_ver_exit(room_height - 16);
+
+for (var _exit = 0; _exit &lt; array_length_1d(exits); _exit++) {
+    if (exits[_exit]) {
+        room_val += power(2, _exit + 1);
+    }
+}
+
+ds_grid_set(map_grid, room_x, room_y, room_val);
+
 event_user(0);
 </string>
           </argument>
@@ -313,7 +334,16 @@ switch (state) {
         draw_set_alpha(1);
         
         break;
+    case map_state:
+        draw_set_alpha(0.5);
+        draw_set_color(c_black);
+        draw_rectangle(0, 0, room_width, room_height, false);
+        draw_set_alpha(1);
+        
+        break;
 }
+
+scr_draw_map(room_width / 2, room_height / 2, map_grid);
 </string>
           </argument>
         </arguments>
