@@ -35,8 +35,11 @@ if (obj_controller.gamepad) {
     addition = "Left Stick or ";
 }
 
-draw_text_ext(x, y - 24, "Use " + addition + scr_label(obj_controller.left) + "/" + scr_label(obj_controller.right) + " to move", 12, 190);
-draw_text_ext(x, y + 20, "Press " + scr_label(obj_controller.jump) + " to jump", 12, 190);
+draw_set_valign(fa_middle);
+
+draw_text_ext(x, y - 36 - 4, "Use " + addition + scr_label(obj_controller.left) + "/" + scr_label(obj_controller.right) + " to move", 12, 190);
+draw_text_ext(x, y - 4, "Press " + scr_label(obj_controller.jump) + " to jump", 12, 190);
+draw_text_ext(x, y + 36 - 4, "Press " + scr_label(obj_controller.map) + " to view map", 12, 190);
 </string>
           </argument>
         </arguments>
