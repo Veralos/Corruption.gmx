@@ -126,6 +126,7 @@
       <script>scripts\scr_menu_new.gml</script>
       <script>scripts\scr_menu_options.gml</script>
       <script>scripts\scr_menu_controls.gml</script>
+      <script>scripts\scr_menu_new_check.gml</script>
       <script>scripts\scr_menu_keyboard.gml</script>
       <script>scripts\scr_menu_gamepad.gml</script>
       <script>scripts\scr_menu_keyboard_bind.gml</script>

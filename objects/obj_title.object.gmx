@@ -25,16 +25,39 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>main_menu = ds_list_create();
+            <string>ini_open("corruption_data");
+var can_load = ini_section_exists("data");
+ini_close();
+
+main_menu = ds_list_create();
+if (can_load) {
+    ds_list_add(main_menu,
+        scr_menu_item("New", scr_menu_new_check),
+        scr_menu_item("Continue", scr_menu_continue),
+    );
+}
+else {
+    ds_list_add(main_menu,
+        scr_menu_item("New", scr_menu_new)
+    );
+}
 ds_list_add(main_menu,
-    scr_menu_item("New", scr_menu_new),
-    scr_menu_item("Continue", scr_menu_continue),
     scr_menu_item("Options", scr_menu_options),
     scr_menu_item("Control Config", scr_menu_controls),
     scr_menu_item("Quit", scr_menu_quit)
 );
 
+new_menu = ds_list_create();
+ds_list_add(new_menu,
+    scr_menu_item("Cancel", scr_menu_back),
+    scr_menu_item("Start New Game (Erase Old Data)", scr_menu_new)
+);
+
 event_inherited();
+
+if (can_load) {
+    selected = 1;
+}
 
 audio_play_sound(mus_title, 0, true);
 </string>
