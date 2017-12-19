@@ -43,10 +43,13 @@ base_state = 0;
 ability_state = 1;
 pause_state = 2;
 map_state = 3;
+freeze_state = 4;
 
 state = base_state;
 
 can_press = 0;
+
+freeze_time = 0;
 
 desc_list = ds_list_create();
 ds_list_add(desc_list,
@@ -186,6 +189,13 @@ switch (state) {
         }
         
         break;
+    case freeze_state:
+        if (freeze_time &gt; 0) {
+            freeze_time--;
+        }
+        else {
+            state = base_state;
+        }
 }
 </string>
           </argument>
@@ -280,7 +290,7 @@ var room_val = 1;
 var exits;
 var i = 0;
 exits[i++] = scr_hor_exit(room_width - 16);
-exits[i++] = scr_ver_exit(0);
+exits[i++] = scr_ver_exit(0) &amp;&amp; room_y &gt; 0;
 exits[i++] = scr_hor_exit(0);
 exits[i++] = scr_ver_exit(room_height - 16);
 
