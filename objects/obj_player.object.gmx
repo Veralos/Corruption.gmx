@@ -97,6 +97,10 @@ can_jump = 0;
         inv--;
     flash = !flash;
     
+    if (state != base_state) {
+        can_jump = 0;
+    }
+    
     switch (state) {
         case base_state:
             if (obj_controller.left_held) {
