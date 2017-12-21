@@ -270,8 +270,24 @@ for (var i = 0; i &lt; ds_list_size(current_menu); i++) {
     if (i == selected) {
         text = "&gt; " + text + " &lt;";
     }
-    draw_text(room_width / 2, room_height / 2 + i * 20, text);
+    draw_text(room_width / 2, room_height / 2 - 16 + i * 20, text);
 }
+
+var text_confirm = "Confirm - A";
+if (obj_controller.gamepad) {
+    var text_select = "Select - Left Stick";
+    var text_cancel = "Cancel - Start";
+}
+else {
+    var text_select = "Select - Up/Down";
+    var text_cancel = "Cancel - Escape";
+}
+
+draw_set_font(fnt_help)
+
+draw_text(room_width / 5, room_height - 16, text_confirm);
+draw_text(room_width / 2, room_height - 16, text_select);
+draw_text(room_width * (4 / 5), room_height - 16, text_cancel);
 
 if (state != base_state) {
     draw_set_alpha(0.9);

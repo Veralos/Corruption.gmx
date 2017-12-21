@@ -169,6 +169,7 @@
     <font>fonts\fnt_title</font>
     <font>fonts\fnt_ability</font>
     <font>fonts\fnt_option</font>
+    <font>fonts\fnt_help</font>
     <font>fonts\fnt_description</font>
     <font>fonts\fnt_sign</font>
   </fonts>
