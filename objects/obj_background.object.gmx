@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite(spr_background, obj_control.room_y, 0, 0);
+            <string>draw_sprite(spr_background2, obj_control.room_y, 0, 0);
 </string>
           </argument>
         </arguments>
