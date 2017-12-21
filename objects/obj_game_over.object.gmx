@@ -88,7 +88,7 @@ draw_set_valign(fa_middle);
 draw_set_color(make_color_rgb(203, 44, 14));
 draw_set_font(fnt_title);
 
-draw_text(room_width / 2, room_height / 2, "GAME OVER");
+scr_draw_shaky_text(room_width / 2, room_height / 2, "GAME OVER", 2);
 
 draw_set_color(c_white);
 draw_set_font(fnt_option);

@@ -147,7 +147,7 @@ draw_set_valign(fa_middle);
 draw_set_color(make_color_rgb(203, 44, 14));
 draw_set_font(fnt_title);
 
-draw_text(room_width / 2, room_height / 4, "Paused");
+scr_draw_shaky_text(room_width / 2, room_height / 4, "Paused", 2);
 
 event_inherited();
 </string>

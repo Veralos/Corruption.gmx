@@ -65,7 +65,7 @@ draw_text(room_width / 2, room_height / 6, "You are now fully");
 draw_set_color(make_color_rgb(203, 44, 14));
 draw_set_font(fnt_title);
 
-draw_text(room_width / 2, room_height * (2 / 6), "Corrupted");
+scr_draw_shaky_text(room_width / 2, room_height * (2 / 6), "Corrupted", 2);
 
 draw_set_color(c_white);
 draw_set_font(fnt_option);
