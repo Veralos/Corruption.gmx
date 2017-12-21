@@ -194,7 +194,7 @@
     <instance objName="obj_wall" x="160" y="80" name="inst_CCD30B20" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="176" y="80" name="inst_B0E8BE4E" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="192" y="80" name="inst_EB974B60" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
-    <instance objName="obj_enemy_bouncer" x="96" y="144" name="inst_F4E9AB20" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_enemy_bouncer" x="96" y="112" name="inst_F4E9AB20" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy_walker" x="160" y="64" name="inst_36901193" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy_walker" x="368" y="64" name="inst_5084CEC8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_enemy_walker" x="208" y="256" name="inst_D9E15431" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
