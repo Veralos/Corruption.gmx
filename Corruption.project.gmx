@@ -109,6 +109,7 @@
     <sprite>sprites\spr_sign2</sprite>
     <sprite>sprites\spr_map_room</sprite>
     <sprite>sprites\spr_map_exit</sprite>
+    <sprite>sprites\spr_sparkle</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -195,7 +196,9 @@
     <object>objects\obj_sign</object>
     <object>objects\obj_audio</object>
     <object>objects\obj_controller</object>
+    <object>objects\obj_sparkle</object>
   </objects>
+  <timelines name="timelines"/>
   <rooms name="rooms">
     <room>rooms\rm_init</room>
     <room>rooms\rm_title</room>
